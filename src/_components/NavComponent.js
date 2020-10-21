@@ -146,7 +146,7 @@ export const NavComponent = () => {
         <Divider />
 
         <List>
-          {["Cart", "Shop", "Home"].map((text, index) => (
+          {["Cart", "Products", "Home"].map((text, index) => (
             <ListItem
               button
               key={text}
