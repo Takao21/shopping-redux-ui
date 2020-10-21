@@ -1,12 +1,24 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import { HomePage } from "./pages/HomePage";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ProductsPage } from "./pages/ProductsPage";
+import { DetailsPage } from "./pages/DetailsPage";
+import { CartPage } from "./pages/CartPage";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello, how's it going? Let's build our project!</h1>
-    </div>
+    <Router>
+      <Switch>
+        <div className="App">
+          <Route path="/" exact component={HomePage}></Route>
+          <Route path="/home" exact component={HomePage}></Route>
+          <Route path="/products" exact component={ProductsPage}></Route>
+          <Route path="/details" component={DetailsPage}></Route>
+          <Route path="/cart" exact component={CartPage}></Route>
+        </div>
+      </Switch>
+    </Router>
   );
 }
 
