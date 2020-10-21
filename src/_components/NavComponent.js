@@ -16,6 +16,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Home, ShoppingCart, Store } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -146,7 +147,12 @@ export const NavComponent = () => {
 
         <List>
           {["Cart", "Shop", "Home"].map((text, index) => (
-            <ListItem button key={text}>
+            <ListItem
+              button
+              key={text}
+              component={Link}
+              to={["/cart", "/products", "/home"][index]}
+            >
               <ListItemIcon>
                 {[<ShoppingCart />, <Store />, <Home />][index]}
               </ListItemIcon>
