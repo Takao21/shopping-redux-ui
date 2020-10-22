@@ -20,8 +20,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "66px",
   },
   gridList: {
-    width: "80%",
+    width: "100%",
     height: "auto",
+    paddingLeft: "58px",
   },
 
   icon: {
@@ -36,6 +37,7 @@ export const ProductsPage = () => {
   // Media Query
   const theme = useTheme();
   const screenIsMd = useMediaQuery(theme.breakpoints.up("md"));
+  const screenIsXs = useMediaQuery(theme.breakpoints.up("xs"));
   const getGridListCols = () => {
     if (screenIsMd) {
       return 1;
@@ -45,6 +47,8 @@ export const ProductsPage = () => {
   const getCellHeights = () => {
     if (screenIsMd) {
       return 600;
+    } else if (screenIsXs) {
+      return 500;
     }
     return 750;
   };
