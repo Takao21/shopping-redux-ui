@@ -13,7 +13,7 @@ export const HomePage = () => {
   const dispatch = useDispatch();
   return (
     <div>
-      <h1>Homepage</h1>
+      <h1 className="mt-5">Homepage</h1>
 
       <button onClick={() => dispatch(addToCart())}>Add to Cart</button>
       <button onClick={() => dispatch(removeLastItem())}>
