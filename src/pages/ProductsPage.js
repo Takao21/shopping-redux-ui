@@ -36,27 +36,39 @@ export const ProductsPage = () => {
 
   // Media Query
   const theme = useTheme();
+  const screenIsLg = useMediaQuery(theme.breakpoints.up("lg"));
   const screenIsMd = useMediaQuery(theme.breakpoints.up("md"));
+  const screenIsSm = useMediaQuery(theme.breakpoints.up("sm"));
   const screenIsXs = useMediaQuery(theme.breakpoints.up("xs"));
   const getGridListCols = () => {
-    if (screenIsMd) {
+    if (screenIsLg) {
       return 1;
+    } else if (screenIsMd) {
+      return 2;
+    } else if (screenIsSm) {
+      return 2;
+    } else if (screenIsXs) {
+      return 4;
     }
-    return 2;
+    return 4;
   };
   const getCellHeights = () => {
     if (screenIsMd) {
-      return 600;
-    } else if (screenIsXs) {
       return 500;
+    } else if (screenIsXs) {
+      return 450;
     }
-    return 750;
+    return 580;
   };
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={getCellHeights()} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
+      <GridList
+        cellHeight={getCellHeights()}
+        cols={4}
+        className={classes.gridList}
+      >
+        <GridListTile key="Subheader" cols={4} style={{ height: "auto" }}>
           <ListSubheader component="div">Products</ListSubheader>
         </GridListTile>
         {data.map((product) => (
@@ -65,14 +77,6 @@ export const ProductsPage = () => {
             <GridListTileBar
               title={product.title}
               subtitle={<span>Categories: {product.category}</span>}
-              actionIcon={
-                <IconButton
-                  aria-label={`info about ${product.title}`}
-                  className={classes.icon}
-                >
-                  <InfoIcon />
-                </IconButton>
-              }
             />
           </GridListTile>
         ))}
