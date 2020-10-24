@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "10px",
   },
   media: {
-    height: 380,
-    paddingTop: "56.25%", // 16:9
+    height: 400,
+    backgroundSize: "contain",
   },
   addcart: {
     marginLeft: "auto",
