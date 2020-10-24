@@ -28,6 +28,7 @@ const useStyles = makeStyles({
   },
   buynow: {
     marginTop: 10,
+    marginBottom: 10,
     padding: "15px 25px",
   },
 });
@@ -36,12 +37,14 @@ const ccyFormat = (num) => {
   return `${num.toFixed(2)}`;
 };
 
-const priceRow = (unit) => {
-  return 1 * unit;
+const priceRow = (qty, unit) => {
+  return qty * unit;
 };
 
 const subtotal = (items) => {
-  return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+  return items
+    .map(({ quantity, price }) => quantity * price)
+    .reduce((sum, i) => sum + i, 0);
 };
 
 const addTax = (total) => {
@@ -88,13 +91,14 @@ export const CartPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {console.log("Cart is ", cart)}
             {cart.map((item) => (
               <TableRow key={item.id}>
                 <TableCell>{item.title}</TableCell>
-                <TableCell align="right">1</TableCell>
+                <TableCell align="right">{item.quantity}</TableCell>
                 <TableCell align="right">{"$ " + item.price}</TableCell>
                 <TableCell align="right">
-                  {"$ " + ccyFormat(priceRow(item.price))}
+                  {"$ " + ccyFormat(priceRow(item.quantity, item.price))}
                 </TableCell>
               </TableRow>
             ))}
