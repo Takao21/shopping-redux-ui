@@ -8,6 +8,7 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { DataContext } from "../App";
 import { Link } from "react-router-dom";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,15 +17,17 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
     overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
-    marginTop: "66px",
     marginBottom: 5,
+  },
+  maintitle: {
+    marginTop: 77,
+    marginBottom: 10,
   },
   gridList: {
     width: "100%",
     height: "auto",
     paddingLeft: "58px",
   },
-
   icon: {
     color: "rgba(255, 255, 255, 0.54)",
   },
@@ -69,7 +72,9 @@ export const ProductsPage = () => {
         className={classes.gridList}
       >
         <GridListTile key="Subheader" cols={4} style={{ height: "auto" }}>
-          <ListSubheader component="div">Products</ListSubheader>
+          <Typography variant="h4" component="h5" className={classes.maintitle}>
+            Products
+          </Typography>
         </GridListTile>
         {data.map((product) => (
           <GridListTile

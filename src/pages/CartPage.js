@@ -9,30 +9,40 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { Button, Typography } from "@material-ui/core";
+import { ShoppingCartSharp } from "@material-ui/icons";
 
 const TAX_RATE = 0.05;
 
 const useStyles = makeStyles({
+  maintitle: {
+    marginTop: 77,
+  },
   tableContainer: {
     maxWidth: "calc(100% - 109px)",
     marginLeft: "83px",
+    marginTop: 10,
   },
   table: {
     maxWidth: "100%",
   },
+  buynow: {
+    marginTop: 10,
+    padding: "15px 25px",
+  },
 });
 
-function ccyFormat(num) {
+const ccyFormat = (num) => {
   return `${num.toFixed(2)}`;
-}
+};
 
-function priceRow(unit) {
+const priceRow = (unit) => {
   return 1 * unit;
-}
+};
 
-function subtotal(items) {
+const subtotal = (items) => {
   return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
-}
+};
 
 const addTax = (total) => {
   return TAX_RATE * total;
@@ -48,12 +58,14 @@ export const CartPage = () => {
   const dispatch = useDispatch();
   return (
     <div>
-      <h1 className="mt-5">My Cart</h1>
+      <Typography variant="h4" component="h5" className={classes.maintitle}>
+        My Cart
+      </Typography>
 
-      <button onClick={() => dispatch(addToCart())}>Add to Cart</button>
+      {/* <button onClick={() => dispatch(addToCart())}>Add to Cart</button>
       <button onClick={() => dispatch(removeLastItem())}>
         Remove Last Item
-      </button>
+      </button> */}
 
       <TableContainer component={Paper} className={classes.tableContainer}>
         <Table
@@ -112,6 +124,14 @@ export const CartPage = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Button
+        variant="contained"
+        color="primary"
+        endIcon={<ShoppingCartSharp />}
+        className={classes.buynow}
+      >
+        Check out
+      </Button>
     </div>
   );
 };
