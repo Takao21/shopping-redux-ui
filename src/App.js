@@ -16,7 +16,7 @@ function App() {
   const fetchAllProducts = async () => {
     try {
       const res = await axios.get(`${END_POINT}/products`);
-      console.log(res.data);
+      console.log("Context: ", res.data);
       setData(res.data);
     } catch (err) {
       console.log(err);
@@ -26,7 +26,6 @@ function App() {
 
   useEffect(() => {
     fetchAllProducts();
-    console.log("Data:", data);
   }, []);
 
   return (

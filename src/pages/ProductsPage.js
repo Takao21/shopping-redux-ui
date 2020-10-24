@@ -6,8 +6,6 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import IconButton from "@material-ui/core/IconButton";
-import InfoIcon from "@material-ui/icons/Info";
 import { DataContext } from "../App";
 import { Link } from "react-router-dom";
 
@@ -19,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
     marginTop: "66px",
+    marginBottom: 5,
   },
   gridList: {
     width: "100%",

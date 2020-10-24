@@ -15,21 +15,21 @@ import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 600,
+    maxWidth: 480,
     marginLeft: "83px",
     marginRight: "26px",
     marginTop: "74px",
     marginBottom: "10px",
   },
   media: {
-    height: "80vh",
+    height: 380,
     paddingTop: "56.25%", // 16:9
   },
   addcart: {
     marginLeft: "auto",
   },
   divider: {
-    margin: "20px 0",
+    margin: "10px 0",
   },
 }));
 
@@ -50,16 +50,16 @@ export const DetailsPage = ({ match }) => {
       />
       <CardMedia
         className={classes.media}
-        image={selectedProduct.image}
-        title={selectedProduct.title}
+        image={selectedProduct.image || "empty"}
+        title={selectedProduct.title || "image"}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {selectedProduct.description}
         </Typography>
         <Divider className={classes.divider} />
-        <Typography variant="body3" color="textPrimary" component="h4">
-          {"$ " + selectedProduct.price || "$ 0"}
+        <Typography variant="body2" color="textPrimary" component="h4">
+          {"$ " + (selectedProduct.price || "---")}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
