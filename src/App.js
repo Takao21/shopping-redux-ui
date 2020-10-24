@@ -38,7 +38,7 @@ function App() {
             <Route path="/" exact component={HomePage}></Route>
             <Route path="/home" exact component={HomePage}></Route>
             <Route path="/products" exact component={ProductsPage}></Route>
-            <Route path="/details" component={DetailsPage}></Route>
+            <Route path="/details/:id" component={DetailsPage}></Route>
             <Route path="/cart" exact component={CartPage}></Route>
           </Switch>
         </div>

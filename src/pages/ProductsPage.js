@@ -9,6 +9,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
 import { DataContext } from "../App";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,7 +73,12 @@ export const ProductsPage = () => {
           <ListSubheader component="div">Products</ListSubheader>
         </GridListTile>
         {data.map((product) => (
-          <GridListTile key={product.id} cols={getGridListCols()}>
+          <GridListTile
+            component={Link}
+            to={"/details/" + product.id}
+            key={product.id}
+            cols={getGridListCols()}
+          >
             <img src={product.image} alt={product.title} />
             <GridListTileBar
               title={product.title}
