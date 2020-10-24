@@ -8,10 +8,11 @@ import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-
+import { addToCart } from "../redux_actions";
 import { DataContext } from "../App";
 import { AddShoppingCart } from "@material-ui/icons";
 import { Divider } from "@material-ui/core";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
 
 export const DetailsPage = ({ match }) => {
   const products = useContext(DataContext);
+
+  // Cart Updaters
+  const dispatch = useDispatch();
+
   let selectedProduct = products.filter(
     (prod) => prod.id === Number(match.params.id)
   );
@@ -66,7 +71,11 @@ export const DetailsPage = ({ match }) => {
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="add to cart" className={classes.addcart}>
+        <IconButton
+          aria-label="add to cart"
+          className={classes.addcart}
+          onClick={() => dispatch(addToCart(selectedProduct))}
+        >
           <AddShoppingCart />
         </IconButton>
       </CardActions>
