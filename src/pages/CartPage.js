@@ -83,6 +83,7 @@ export const CartPage = () => {
   };
   const handleRemoveSelected = () => {
     dispatch(removeItem(selected));
+    setSelected([]);
   };
 
   const isItemSelected = (id) => {
