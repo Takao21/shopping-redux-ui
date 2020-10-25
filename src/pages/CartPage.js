@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeItem } from "../redux_actions";
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,7 +10,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Button, Checkbox, Typography } from "@material-ui/core";
-import { Remove, ShoppingCartSharp } from "@material-ui/icons";
+import { DeleteOutline, Remove, ShoppingCartSharp } from "@material-ui/icons";
 
 const TAX_RATE = 0.05;
 
@@ -26,10 +26,16 @@ const useStyles = makeStyles({
   table: {
     maxWidth: "100%",
   },
-  buynow: {
+  buybutton: {
     marginTop: 10,
     marginBottom: 10,
     padding: "15px 25px",
+  },
+  removebutton: {
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: "-100%",
+    transform: "translateX(95%)",
   },
 });
 
@@ -62,20 +68,33 @@ export const CartPage = () => {
 
   //Checkbox Logic
   const [selected, setSelected] = useState([]); // [ id1, id2, id3, ...]
+
   const handleChecked = (event) => {
+    // event.preventDefault();
+    // event.stopPropagation();
     let itemToSelect = event.target.getAttribute("aria-labelledby");
     if (event.target.checked) {
       setSelected((prevState) => [...prevState, itemToSelect]);
     } else {
-      setSelected((prevState) => {
-        let newState = prevState;
-        newState.splice(prevState.indexOf(itemToSelect), 1);
-        return newState;
-      });
+      setSelected((prevState) =>
+        prevState.filter((itemId) => itemId !== itemToSelect)
+      );
     }
   };
   const handleRemoveSelected = () => {
     dispatch(removeItem(selected));
+  };
+
+  const isItemSelected = (id) => {
+    return selected.indexOf(id + "") !== -1;
+  };
+
+  const handleSelectAll = (event) => {
+    if (event.target.checked) {
+      setSelected(() => cart.map((item) => "" + item.id));
+    } else {
+      setSelected([]);
+    }
   };
 
   useEffect(() => {
@@ -91,8 +110,9 @@ export const CartPage = () => {
       <Button
         color="secondary"
         variant="contained"
-        endIcon={<Remove />}
+        endIcon={<DeleteOutline />}
         onClick={handleRemoveSelected}
+        className={classes.removebutton}
       >
         Remove Selected
       </Button>
@@ -109,10 +129,8 @@ export const CartPage = () => {
             <TableRow>
               <TableCell padding="checkbox" colSpan={1}>
                 <Checkbox
-                  // indeterminate="true"
-                  // checked={rowCount > 0 && numSelected === rowCount}
-                  // onChange={onSelectAllClick}
-                  inputProps={{ "aria-label": "select all" }}
+                  checked={cart.length > 0 && selected.length === cart.length}
+                  onChange={handleSelectAll}
                 />
               </TableCell>
               <TableCell>Item Name</TableCell>
@@ -127,6 +145,7 @@ export const CartPage = () => {
               <TableRow key={item.id}>
                 <TableCell colSpan={1}>
                   <Checkbox
+                    checked={isItemSelected(item.id)}
                     onChange={handleChecked}
                     inputProps={{ "aria-labelledby": item.id }}
                   />
@@ -169,7 +188,7 @@ export const CartPage = () => {
         variant="contained"
         color="primary"
         endIcon={<ShoppingCartSharp />}
-        className={classes.buynow}
+        className={classes.buybutton}
       >
         Check out
       </Button>
