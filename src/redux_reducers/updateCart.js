@@ -10,7 +10,6 @@ const updateCartReducer = (state = [], action) => {
             (item) => item.id === action.payload.id
           )[0]; // [{...}]
           existingItem.quantity = existingItem.quantity + 1;
-          console.log("existing is: ", existingItem);
           let theRest = state.filter((item) => item.id !== action.payload.id); // [{}, {}, {}]
           return [...theRest, existingItem]; // update existing item, keep the rest the same
         } else {
@@ -31,11 +30,13 @@ const updateCartReducer = (state = [], action) => {
           ...action.payload,
         },
       ];
+
     case "REMOVE":
       console.log(action.payload);
       return state.filter(
         (item) => action.payload.indexOf(item.id + "") === -1
       );
+
     case "INCREASE":
       console.log("Increasing qty...");
       cart = state;
@@ -48,6 +49,7 @@ const updateCartReducer = (state = [], action) => {
         return item;
       });
       return update;
+
     case "DECREASE":
       console.log("Decreasing qty...");
       cart = state;
