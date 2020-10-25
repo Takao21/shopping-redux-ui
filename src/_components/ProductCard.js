@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 345,
   },
   media: {
-    height: 0,
+    height: 345,
+    backgroundSize: "contain",
     paddingTop: "56.25%", // 16:9
   },
   pointer: {

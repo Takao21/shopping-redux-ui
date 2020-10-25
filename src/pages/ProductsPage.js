@@ -7,7 +7,8 @@ import ProductCard from "../_components/ProductCard";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100%",
-    overflowX: "hidden",
+    overflow: "hidden",
+    paddingBottom: 10,
   },
   noUnderline: {
     textDecoration: "none",

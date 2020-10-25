@@ -45,6 +45,9 @@ const useStyles = makeStyles({
     marginBottom: 10,
     marginRight: 10,
   },
+  textCenter: {
+    textAlign: "center",
+  },
 });
 
 const ccyFormat = (num) => {
@@ -78,8 +81,6 @@ export const CartPage = () => {
   const [selected, setSelected] = useState([]); // [ id1, id2, id3, ...]
 
   const handleChecked = (event) => {
-    // event.preventDefault();
-    // event.stopPropagation();
     let itemToSelect = event.target.getAttribute("aria-labelledby");
     if (event.target.checked) {
       setSelected((prevState) => [...prevState, itemToSelect]);
@@ -111,7 +112,7 @@ export const CartPage = () => {
   }, [selected]);
 
   return (
-    <div>
+    <div className={classes.textCenter}>
       <Typography variant="h4" component="h5" className={classes.maintitle}>
         My Cart
       </Typography>
