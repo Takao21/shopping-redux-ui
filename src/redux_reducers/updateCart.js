@@ -62,6 +62,7 @@ const updateCartReducer = (state = [], action) => {
         return item;
       });
       return update;
+
     default:
       return state;
   }
