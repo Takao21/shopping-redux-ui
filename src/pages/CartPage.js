@@ -215,6 +215,9 @@ export const CartPage = () => {
         color="primary"
         endIcon={<ShoppingCartSharp />}
         className={classes.buybutton}
+        onClick={() =>
+          cart.length > 0 ? alert("Success!") : alert("Your cart is empty.")
+        }
       >
         Check out
       </Button>
