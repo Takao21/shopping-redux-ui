@@ -68,6 +68,9 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9) + 1,
     },
   },
+  cartIcon: {
+    color: theme.palette.success.main,
+  },
   toolbar: {
     display: "flex",
     alignItems: "center",
@@ -146,15 +149,21 @@ export const NavComponent = () => {
         <Divider />
 
         <List>
-          {["My Cart", "Products", "Home"].map((text, index) => (
+          {["Home", "Products", "My Cart"].map((text, index) => (
             <ListItem
               button
               key={text}
               component={Link}
-              to={["/cart", "/products", "/home"][index]}
+              to={["/home", "/products", "/cart"][index]}
             >
               <ListItemIcon>
-                {[<ShoppingCart />, <Store />, <Home />][index]}
+                {
+                  [
+                    <Home />,
+                    <Store />,
+                    <ShoppingCart className={classes.cartIcon} />,
+                  ][index]
+                }
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>

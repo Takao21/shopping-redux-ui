@@ -1,4 +1,6 @@
 const updateCartReducer = (state = [], action) => {
+  let cart = [],
+    update = [];
   switch (action.type) {
     case "ADD":
       if (state.length) {
@@ -34,6 +36,30 @@ const updateCartReducer = (state = [], action) => {
       return state.filter(
         (item) => action.payload.indexOf(item.id + "") === -1
       );
+    case "INCREASE":
+      console.log("Increasing qty...");
+      cart = state;
+      update = cart.map((item) => {
+        if (action.payload.includes(item.id + "")) {
+          let temp = item;
+          temp.quantity = temp.quantity + 1;
+          return temp;
+        }
+        return item;
+      });
+      return update;
+    case "DECREASE":
+      console.log("Decreasing qty...");
+      cart = state;
+      update = cart.map((item) => {
+        if (action.payload.includes(item.id + "")) {
+          let temp = item;
+          temp.quantity = temp.quantity - 1 || 1;
+          return temp;
+        }
+        return item;
+      });
+      return update;
     default:
       return state;
   }

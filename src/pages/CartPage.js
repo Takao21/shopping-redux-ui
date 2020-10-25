@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeItem } from "../redux_actions";
+import {
+  addToCart,
+  decreaseQty,
+  increaseQty,
+  removeItem,
+} from "../redux_actions";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,8 +14,14 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Button, Checkbox, Typography } from "@material-ui/core";
-import { DeleteOutline, Remove, ShoppingCartSharp } from "@material-ui/icons";
+import { Button, Checkbox, Container, Typography } from "@material-ui/core";
+import {
+  Add,
+  DeleteOutline,
+  PlusOne,
+  Remove,
+  ShoppingCartSharp,
+} from "@material-ui/icons";
 
 const TAX_RATE = 0.05;
 
@@ -31,11 +42,14 @@ const useStyles = makeStyles({
     marginBottom: 10,
     padding: "15px 25px",
   },
-  removebutton: {
+  operationContainer: {
+    maxWidth: "100%",
+    paddingLeft: "83px",
+  },
+  operationbutton: {
     marginTop: 10,
     marginBottom: 10,
-    marginLeft: "-100%",
-    transform: "translateX(95%)",
+    marginRight: 10,
   },
 });
 
@@ -107,16 +121,33 @@ export const CartPage = () => {
       <Typography variant="h4" component="h5" className={classes.maintitle}>
         My Cart
       </Typography>
+      <Container className={classes.operationContainer} align="left">
+        <Button
+          color="secondary"
+          variant="contained"
+          endIcon={<DeleteOutline />}
+          onClick={handleRemoveSelected}
+          className={classes.operationbutton}
+        >
+          Remove Selected
+        </Button>
 
-      <Button
-        color="secondary"
-        variant="contained"
-        endIcon={<DeleteOutline />}
-        onClick={handleRemoveSelected}
-        className={classes.removebutton}
-      >
-        Remove Selected
-      </Button>
+        <Button
+          variant="contained"
+          onClick={() => dispatch(decreaseQty(selected))}
+          className={classes.operationbutton}
+        >
+          <Remove />
+        </Button>
+
+        <Button
+          variant="contained"
+          onClick={() => dispatch(increaseQty(selected))}
+          className={classes.operationbutton}
+        >
+          <Add />
+        </Button>
+      </Container>
 
       <TableContainer component={Paper} className={classes.tableContainer}>
         <Table className={classes.table} aria-label="spanning table">

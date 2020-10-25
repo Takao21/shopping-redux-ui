@@ -1,4 +1,5 @@
 export const addToCart = (item) => {
+  alert("Added to Cart.");
   return {
     type: "ADD",
     payload: item || {},
@@ -12,14 +13,16 @@ export const removeItem = (items) => {
   };
 };
 
-export const prevPage = () => {
+export const increaseQty = (items) => {
   return {
-    type: "PREV",
+    type: "INCREASE",
+    payload: items || [],
   };
 };
 
-export const nextPage = () => {
+export const decreaseQty = (items) => {
   return {
-    type: "NEXT",
+    type: "DECREASE",
+    payload: items || [],
   };
 };
