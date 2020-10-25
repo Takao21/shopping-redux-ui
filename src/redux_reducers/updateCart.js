@@ -30,7 +30,10 @@ const updateCartReducer = (state = [], action) => {
         },
       ];
     case "REMOVE":
-      return state.slice(0, state.length - 1);
+      console.log(action.payload);
+      return state.filter(
+        (item) => action.payload.indexOf(item.id + "") === -1
+      );
     default:
       return state;
   }

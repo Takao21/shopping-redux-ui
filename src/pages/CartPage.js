@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeLastItem } from "../redux_actions";
+import { addToCart, removeItem } from "../redux_actions";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,8 +9,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Button, Typography } from "@material-ui/core";
-import { ShoppingCartSharp } from "@material-ui/icons";
+import { Button, Checkbox, Typography } from "@material-ui/core";
+import { Remove, ShoppingCartSharp } from "@material-ui/icons";
 
 const TAX_RATE = 0.05;
 
@@ -59,32 +59,63 @@ export const CartPage = () => {
   const classes = useStyles();
   const cart = useSelector((state) => state.updateCartReducer);
   const dispatch = useDispatch();
+
+  //Checkbox Logic
+  const [selected, setSelected] = useState([]); // [ id1, id2, id3, ...]
+  const handleChecked = (event) => {
+    let itemToSelect = event.target.getAttribute("aria-labelledby");
+    if (event.target.checked) {
+      setSelected((prevState) => [...prevState, itemToSelect]);
+    } else {
+      setSelected((prevState) => {
+        let newState = prevState;
+        newState.splice(prevState.indexOf(itemToSelect), 1);
+        return newState;
+      });
+    }
+  };
+  const handleRemoveSelected = () => {
+    dispatch(removeItem(selected));
+  };
+
+  useEffect(() => {
+    console.log("Array of selected items", selected);
+  }, [selected]);
+
   return (
     <div>
       <Typography variant="h4" component="h5" className={classes.maintitle}>
         My Cart
       </Typography>
 
-      {/* <button onClick={() => dispatch(addToCart())}>Add to Cart</button>
-      <button onClick={() => dispatch(removeLastItem())}>
-        Remove Last Item
-      </button> */}
+      <Button
+        color="secondary"
+        variant="contained"
+        endIcon={<Remove />}
+        onClick={handleRemoveSelected}
+      >
+        Remove Selected
+      </Button>
 
       <TableContainer component={Paper} className={classes.tableContainer}>
-        <Table
-          className={classes.table}
-          aria-label="spanning table"
-          size="small"
-        >
+        <Table className={classes.table} aria-label="spanning table">
           <TableHead>
             <TableRow>
-              <TableCell align="center" colSpan={3}>
+              <TableCell align="center" colSpan={4}>
                 Details
               </TableCell>
               <TableCell align="right">Price</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Desc</TableCell>
+              <TableCell padding="checkbox" colSpan={1}>
+                <Checkbox
+                  // indeterminate="true"
+                  // checked={rowCount > 0 && numSelected === rowCount}
+                  // onChange={onSelectAllClick}
+                  inputProps={{ "aria-label": "select all" }}
+                />
+              </TableCell>
+              <TableCell>Item Name</TableCell>
               <TableCell align="right">Qty.</TableCell>
               <TableCell align="right">Unit</TableCell>
               <TableCell align="right">Sum</TableCell>
@@ -94,6 +125,12 @@ export const CartPage = () => {
             {console.log("Cart is ", cart)}
             {cart.map((item) => (
               <TableRow key={item.id}>
+                <TableCell colSpan={1}>
+                  <Checkbox
+                    onChange={handleChecked}
+                    inputProps={{ "aria-labelledby": item.id }}
+                  />
+                </TableCell>
                 <TableCell>{item.title}</TableCell>
                 <TableCell align="right">{item.quantity}</TableCell>
                 <TableCell align="right">{"$ " + item.price}</TableCell>
@@ -104,7 +141,7 @@ export const CartPage = () => {
             ))}
 
             <TableRow>
-              <TableCell rowSpan={3} />
+              <TableCell rowSpan={3} colSpan={2} />
               <TableCell colSpan={2}>Subtotal</TableCell>
               <TableCell align="right">
                 {"$ " + ccyFormat(subtotal(cart))}

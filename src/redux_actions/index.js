@@ -5,9 +5,10 @@ export const addToCart = (item) => {
   };
 };
 
-export const removeLastItem = () => {
+export const removeItem = (items) => {
   return {
     type: "REMOVE",
+    payload: items || [],
   };
 };
 
