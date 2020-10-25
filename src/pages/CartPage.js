@@ -1,11 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addToCart,
-  decreaseQty,
-  increaseQty,
-  removeItem,
-} from "../redux_actions";
+import { decreaseQty, increaseQty, removeItem } from "../redux_actions";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -18,7 +13,6 @@ import { Button, Checkbox, Container, Typography } from "@material-ui/core";
 import {
   Add,
   DeleteOutline,
-  PlusOne,
   Remove,
   ShoppingCartSharp,
 } from "@material-ui/icons";
