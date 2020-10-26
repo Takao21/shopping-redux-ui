@@ -32,13 +32,13 @@ function App() {
     <Router>
       <DataContext.Provider value={data}>
         <div className="App">
-          <NavComponent />
+          <Route path="" component={NavComponent} />
           <Switch>
-            <Route path="/" exact component={HomePage}></Route>
-            <Route path="/home" exact component={HomePage}></Route>
-            <Route path="/products" exact component={ProductsPage}></Route>
-            <Route path="/details/:id" component={DetailsPage}></Route>
-            <Route path="/cart" exact component={CartPage}></Route>
+            <Route path="/" exact component={HomePage} />
+            <Route path="/home" exact component={HomePage} />
+            <Route path="/products" exact component={ProductsPage} />
+            <Route path="/details/:id" component={DetailsPage} />
+            <Route path="/cart" exact component={CartPage} />
           </Switch>
         </div>
       </DataContext.Provider>

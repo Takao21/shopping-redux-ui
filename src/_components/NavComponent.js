@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -15,7 +15,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { Home, ShoppingCart, Store } from "@material-ui/icons";
+import { Home, ShoppingCartSharp, Store } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -83,12 +83,25 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  selfEnd: {
+    position: "absolute",
+    right: "0",
+    transform: "scale(1.3)",
+  },
+  cleanLink: {
+    textDecoration: "none",
+    color: "inherit",
+    "&:hover": {
+      color: "inherit",
+    },
+  },
 }));
 
-export const NavComponent = () => {
+export const NavComponent = ({ location }) => {
+  const currentpath = location.pathname;
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -122,6 +135,20 @@ export const NavComponent = () => {
           <Typography variant="h6" noWrap>
             Let's Go Shopping
           </Typography>
+          {currentpath !== "/cart" && (
+            <IconButton
+              color="inherit"
+              className={clsx(
+                classes.menuButton,
+                classes.selfEnd,
+                classes.cleanLink
+              )}
+              component={Link}
+              to="/cart"
+            >
+              <ShoppingCartSharp />
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -149,19 +176,19 @@ export const NavComponent = () => {
         <Divider />
 
         <List>
-          {["Home", "Products", "My Cart"].map((text, index) => (
+          {["Home", "Products"].map((text, index) => (
             <ListItem
               button
               key={text}
               component={Link}
-              to={["/home", "/products", "/cart"][index]}
+              to={["/home", "/products"][index]}
             >
               <ListItemIcon>
                 {
                   [
                     <Home />,
                     <Store />,
-                    <ShoppingCart className={classes.cartIcon} />,
+                    // <ShoppingCart className={classes.cartIcon} />,
                   ][index]
                 }
               </ListItemIcon>
